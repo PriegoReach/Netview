@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">User ID</ion-label>
+    <ion-input type="number" [(ngModel)]="user_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Nombre del perfil</ion-label>
+    <ion-input type="text" [(ngModel)]="profile_name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">¿Perfil infantil? (0/1)</ion-label>
+    <ion-input type="number" [(ngModel)]="is_kids"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

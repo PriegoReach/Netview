@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="editar-wrapper">
+
+    <!-- ── AVATAR ── -->
+    <div class="avatar-section">
+      <div class="avatar-wrapper">
+        <!-- Preview de nuevo avatar -->
+        <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" class="avatar-img" />
+
+        <!-- Avatar actual -->
+        <img
+          *ngIf="!previewUrl && avatarActual"
+          [src]="avatarActual"
+          alt="Avatar"
+          class="avatar-img"
+        />
+
+        <!-- Placeholder cuando no hay avatar -->
+        <div *ngIf="!previewUrl && !avatarActual" class="avatar-placeholder">
+          <ion-icon name="person"></ion-icon>
+        </div>
+
+        <!-- Botón flotante para subir / cambiar -->
+        <label for="avatar-input" class="avatar-btn">
+          <ion-icon name="camera"></ion-icon>
+        </label>
+
+        <input
+          id="avatar-input"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          (change)="onFileSelected($event)"
+          class="avatar-input"
+        />
+      </div>
+
+      <p class="avatar-hint" *ngIf="!previewUrl">Toca la cámara para cambiar el avatar</p>
+
+      <ion-button
+        *ngIf="previewUrl"
+        size="small"
+        fill="clear"
+        color="danger"
+        (click)="quitarAvatar()"
+      >
+        <ion-icon name="close-circle" slot="start"></ion-icon>
+        Quitar selección
+      </ion-button>
+    </div>
+
+    <!-- ── FORMULARIO ── -->
+    <form [formGroup]="editarForm" (ngSubmit)="submitEditar()">
+
+      <p class="seccion-titulo">DATOS DE CUENTA</p>
+
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input type="text" formControlName="username"></ion-input>
+      </ion-item>
+      <p class="nota">El usuario no se puede cambiar.</p>
+
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.email">
+        <ion-note color="danger" *ngIf="getError('email')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <p class="seccion-titulo">CAMBIAR CONTRASEÑA (opcional)</p>
+
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Contraseña actual</ion-label>
+        <ion-input
+          [type]="tipoPassword"
+          formControlName="password_actual"
+          clearOnEdit="false"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Nueva contraseña</ion-label>
+        <ion-input
+          [type]="tipoPassword"
+          formControlName="password_nuevo"
+          clearOnEdit="false"
+        ></ion-input>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.password_nuevo">
+        <ion-note color="danger" *ngIf="getError('password_nuevo')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <div class="toggle-eye">
+        <ion-button fill="clear" size="small" (click)="togglePassword()">
+          <ion-icon [name]="tipoPassword === 'text' ? 'eye-off' : 'eye'" slot="start"></ion-icon>
+          {{ tipoPassword === 'text' ? 'Ocultar' : 'Mostrar' }} contraseñas
+        </ion-button>
+      </div>
+
+      <ion-button
+        type="submit"
+        expand="block"
+        color="netview"
+        class="btn-submit"
+        [disabled]="cargando"
+      >
+        Guardar cambios
+      </ion-button>
+    </form>
+
+  </div>
+
+</ion-content>

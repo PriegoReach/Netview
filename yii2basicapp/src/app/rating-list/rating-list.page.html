@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Valoraciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cargarDatos()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/rating-create">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar
+    [debounce]="800"
+    (ionInput)="handleInput($event)"
+    placeholder="Buscar valoración..."
+  ></ion-searchbar>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="items.length === 0">
+    <ion-icon name="star-outline" class="empty-icon"></ion-icon>
+    <p class="empty-texto" *ngIf="busqueda === ''">No hay valoraciones registradas.</p>
+    <p class="empty-texto" *ngIf="busqueda !== ''">Sin resultados para "{{ busqueda }}".</p>
+  </div>
+
+  <!-- Listado -->
+  <ion-list *ngIf="items.length > 0">
+    <ion-item *ngFor="let item of items">
+
+      <ion-label class="ion-text-wrap">
+        <h3>Score: {{ item.score }}</h3>
+        <p>ID: {{ item.rating_id }} | Perfil: {{ item.profile_id }} | Contenido: {{ item.content_id }}</p>
+      </ion-label>
+
+      <!-- Botón Ver -->
+      <ion-button
+        [routerLink]="['/rating-detail', item.rating_id]"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="eye" slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Editar -->
+      <ion-button
+        routerLink="/rating-edit"
+        [queryParams]="{ id: item.rating_id }"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Eliminar (módulo 5) -->
+      <ion-button
+        (click)="alertEliminar(item.rating_id, 'Score ' + item.score + ' (P' + item.profile_id + '/C' + item.content_id + ')')"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="trash" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <app-paginacion
+    [total]="total"
+    [porPagina]="porPagina"
+    (click)="pagina($event)"
+  ></app-paginacion>
+
+</ion-content>

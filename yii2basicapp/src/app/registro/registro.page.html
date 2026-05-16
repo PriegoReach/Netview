@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="registro-content">
+
+  <div class="registro-wrapper">
+
+    <!-- Logo -->
+    <div class="logo-wrapper">
+      <h1 class="logo">NETVIEW</h1>
+      <p class="subtitulo">Únete a la experiencia</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="registroForm" (ngSubmit)="submitRegistro()">
+
+      <!-- Usuario -->
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+        ></ion-input>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.username">
+        <ion-note color="danger" *ngIf="getError('username')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <!-- Email -->
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+        ></ion-input>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.email">
+        <ion-note color="danger" *ngIf="getError('email')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <!-- Contraseña -->
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input
+          [type]="tipoPassword"
+          formControlName="password"
+          clearOnEdit="false"
+          autocomplete="new-password"
+        ></ion-input>
+        <button
+          type="button"
+          slot="end"
+          class="btn-eye"
+          (click)="togglePassword()"
+        >
+          <ion-icon [name]="tipoPassword === 'text' ? 'eye-off' : 'eye'"></ion-icon>
+        </button>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.password">
+        <ion-note color="danger" *ngIf="getError('password')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <!-- Confirmar contraseña -->
+      <ion-item lines="none" class="campo">
+        <ion-label position="floating">Confirmar contraseña</ion-label>
+        <ion-input
+          [type]="tipoPassword"
+          formControlName="password_confirm"
+          clearOnEdit="false"
+        ></ion-input>
+      </ion-item>
+      <div class="errores" *ngFor="let m of mensajes.password_confirm">
+        <ion-note color="danger" *ngIf="getError('password_confirm')[m.type]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+        </ion-note>
+      </div>
+
+      <!-- Botón -->
+      <ion-button
+        type="submit"
+        expand="block"
+        color="netview"
+        class="btn-submit"
+        [disabled]="!registroForm.valid"
+      >
+        Crear cuenta
+      </ion-button>
+    </form>
+
+    <!-- Footer -->
+    <div class="footer-registro">
+      <p class="footer-texto">
+        ¿Ya tienes cuenta?
+        <a (click)="irLogin()">Iniciar sesión</a>
+      </p>
+    </div>
+
+  </div>
+
+</ion-content>

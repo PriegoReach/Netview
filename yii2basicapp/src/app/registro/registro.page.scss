@@ -1,0 +1,87 @@
+// src/app/registro/registro.page.scss
+
+.registro-content {
+  --background: var(--ion-background-color);
+}
+
+.registro-wrapper {
+  padding: 24px 24px 32px;
+}
+
+// ── Logo ────────────────────────────────────────────────────────────────────
+.logo-wrapper {
+  text-align:    center;
+  margin-bottom: 32px;
+}
+
+.logo {
+  color:           var(--color-netview);
+  font-size:       36px;
+  font-weight:     800;
+  letter-spacing:  4px;
+  margin:          0;
+}
+
+.subtitulo {
+  color:     var(--ion-color-medium);
+  font-size: 12px;
+  margin:    4px 0 0;
+  letter-spacing: 1px;
+}
+
+// ── Campos ──────────────────────────────────────────────────────────────────
+.campo {
+  --background:    var(--ion-card-background);
+  --border-radius: 8px;
+  margin-bottom:   4px;
+  border-radius:   8px;
+  overflow:        hidden;
+}
+
+.errores {
+  margin: 4px 0 10px 4px;
+  min-height: 16px;
+
+  ion-note {
+    font-size:   11px;
+    display:     flex;
+    align-items: center;
+    gap:         4px;
+  }
+}
+
+.btn-eye {
+  background: none;
+  border:     none;
+  color:      var(--ion-color-medium);
+  font-size:  18px;
+  padding:    0 8px;
+  cursor:     pointer;
+}
+
+// ── Botón ───────────────────────────────────────────────────────────────────
+.btn-submit {
+  margin-top:      20px;
+  --border-radius: 8px;
+  font-size:       14px;
+  font-weight:     700;
+  letter-spacing:  0.5px;
+}
+
+// ── Footer ──────────────────────────────────────────────────────────────────
+.footer-registro {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.footer-texto {
+  color:     var(--ion-color-medium);
+  font-size: 13px;
+
+  a {
+    color:           var(--color-netview);
+    font-weight:     600;
+    cursor:          pointer;
+    text-decoration: underline;
+  }
+}

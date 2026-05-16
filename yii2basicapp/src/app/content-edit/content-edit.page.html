@@ -1,0 +1,217 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/content-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Contenido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <form [formGroup]="contenido" (ngSubmit)="guardar()" class="form-wrapper">
+
+    <ion-grid>
+
+      <!-- ─── DATOS PRINCIPALES ─── -->
+      <ion-row>
+        <ion-col size="12">
+          <p class="seccion-titulo">DATOS DEL CONTENIDO</p>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Título</ion-label>
+            <ion-input type="text" formControlName="title"></ion-input>
+          </ion-item>
+          <div class="errores" *ngFor="let m of mensajes.title">
+            <ion-note color="danger" *ngIf="getError('title')[m.type]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Descripción</ion-label>
+            <ion-textarea formControlName="description" rows="3" autoGrow="true"></ion-textarea>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Tipo</ion-label>
+            <ion-select formControlName="content_type" interface="popover">
+              <ion-select-option *ngFor="let t of tipos" [value]="t.value">{{ t.label }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Duración (min)</ion-label>
+            <ion-input type="number" formControlName="duration_minutes"></ion-input>
+          </ion-item>
+          <div class="errores" *ngFor="let m of mensajes.duration_minutes">
+            <ion-note color="danger" *ngIf="getError('duration_minutes')[m.type]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ m.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Año</ion-label>
+            <ion-input type="number" formControlName="release_year"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="campo">
+            <ion-label position="floating">Clasificación</ion-label>
+            <ion-input type="text" formControlName="clasificacion" placeholder="+13"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- ─── IMAGEN DE PORTADA ─── -->
+      <ion-row>
+        <ion-col size="12">
+          <p class="seccion-titulo">IMAGEN DE PORTADA</p>
+        </ion-col>
+
+        <!-- Preview de nueva imagen seleccionada -->
+        <ion-col size="12" *ngIf="previewUrl">
+          <div class="preview-wrapper">
+            <img [src]="previewUrl" alt="Preview" class="preview-img" />
+            <ion-button size="small" color="danger" fill="solid" class="btn-quitar" (click)="quitarImagen()">
+              <ion-icon name="close" slot="icon-only"></ion-icon>
+            </ion-button>
+            <span class="badge-nueva">Nueva imagen</span>
+          </div>
+        </ion-col>
+
+        <!-- Imagen actual + opción de cambiar -->
+        <ion-col size="12" *ngIf="!previewUrl && imagenActual">
+          <div class="preview-wrapper">
+            <img [src]="imagenActual" alt="Imagen actual" class="preview-img" />
+            <span class="badge-actual">Imagen actual</span>
+          </div>
+          <label for="file-input" class="file-label file-label-cambiar">
+            <ion-icon name="swap-horizontal-outline"></ion-icon>
+            <span>Cambiar imagen</span>
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            (change)="onFileSelected($event)"
+            class="file-input"
+          />
+        </ion-col>
+
+        <!-- Selector inicial (sin imagen) -->
+        <ion-col size="12" *ngIf="!previewUrl && !imagenActual">
+          <label for="file-input" class="file-label">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <span>Seleccionar imagen</span>
+            <small>PNG, JPG o WEBP — máx 5MB</small>
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            (change)="onFileSelected($event)"
+            class="file-input"
+          />
+        </ion-col>
+      </ion-row>
+
+      <!-- ─── GÉNEROS ─── -->
+      <ion-row *ngIf="generosCargados">
+        <ion-col size="12">
+          <div class="seccion-header">
+            <p class="seccion-titulo">GÉNEROS</p>
+            <ion-button size="small" color="netview" (click)="agregarGenero()">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Agregar
+            </ion-button>
+          </div>
+        </ion-col>
+
+        <ion-col size="12" formArrayName="generos">
+          <div class="item-multi" *ngFor="let ctrl of generosFA.controls; let i = index">
+            <ion-item lines="none" class="campo campo-multi">
+              <ion-label position="floating">Género {{ i + 1 }}</ion-label>
+              <ion-select [formControlName]="i" interface="popover">
+                <ion-select-option *ngFor="let g of generos" [value]="g.genre_id">{{ g.genre_name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-button fill="clear" color="danger" class="btn-eliminar" (click)="eliminarGenero(i)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </div>
+          <p class="vacio" *ngIf="generosFA.controls.length === 0">No hay géneros asignados.</p>
+        </ion-col>
+      </ion-row>
+
+      <!-- ─── IDIOMAS ─── -->
+      <ion-row *ngIf="idiomasCargados">
+        <ion-col size="12">
+          <div class="seccion-header">
+            <p class="seccion-titulo">IDIOMAS</p>
+            <ion-button size="small" color="netview" (click)="agregarIdioma()">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Agregar
+            </ion-button>
+          </div>
+        </ion-col>
+
+        <ion-col size="12" formArrayName="idiomas">
+          <div
+            class="item-multi"
+            *ngFor="let grupo of idiomasFA.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <ion-item lines="none" class="campo campo-multi-doble">
+              <ion-label position="floating">Idioma {{ i + 1 }}</ion-label>
+              <ion-select formControlName="language_id" interface="popover">
+                <ion-select-option *ngFor="let l of idiomas" [value]="l.language_id">{{ l.language_name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="campo campo-multi-doble">
+              <ion-label position="floating">Tipo</ion-label>
+              <ion-select formControlName="language_type" interface="popover">
+                <ion-select-option *ngFor="let t of tiposIdioma" [value]="t.value">{{ t.label }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-button fill="clear" color="danger" class="btn-eliminar" (click)="eliminarIdioma(i)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </div>
+          <p class="vacio" *ngIf="idiomasFA.controls.length === 0">No hay idiomas asignados.</p>
+        </ion-col>
+      </ion-row>
+
+      <!-- ─── BOTÓN GUARDAR ─── -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-button
+            type="submit"
+            expand="block"
+            color="netview"
+            class="btn-guardar"
+            [disabled]="!contenido.valid"
+          >
+            Guardar Cambios
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </form>
+
+</ion-content>

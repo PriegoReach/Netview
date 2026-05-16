@@ -1,0 +1,54 @@
+# ============================================================
+# Archivo: yii2basicapp/.gitignore
+# ============================================================
+
+# Dependencies
+/node_modules/
+/.pnp
+.pnp.js
+
+# Builds
+/www/
+/dist/
+/build/
+/coverage/
+/.angular/
+*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+.history/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files con credenciales reales
+/src/environments/environment.prod.ts.local
+
+# Ionic / Capacitor / Cordova
+/platforms/
+/plugins/
+/resources/
+*.iml
+.gradle/
+
+# Testing
+/coverage
+/e2e/*.js
+/e2e/*.map
+
+# Output
+/out-tsc/
+
+# Misc
+.netlify
+.env
+.env.local

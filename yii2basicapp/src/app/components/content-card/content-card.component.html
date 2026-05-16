@@ -1,0 +1,12 @@
+<ion-card class="netview-card">
+     <img [src]="portada || 'assets/img/sin-portada.png'" [alt]="titulo" class="card-img"/>
+
+     <ion-card-header>
+       <ion-card-subtitle color="gris">{{ tipo }} • {{ anio }}</ion-card-subtitle>
+       <ion-card-title class="card-titulo">{{ titulo }}</ion-card-title>
+     </ion-card-header>
+
+     <ion-card-content>
+       <ion-badge color="netview">⭐ {{ calificacion | number:'1.1-1' }}</ion-badge>
+     </ion-card-content>
+   </ion-card>

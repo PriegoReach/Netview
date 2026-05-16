@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/content-genre-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="item">
+    <ion-card-header>
+      <ion-card-title>Content Genre</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button (click)="editar(item.content_id, item.genre_id)" color="warning" expand="full">
+    <ion-icon name="pencil"></ion-icon> Editar
+</ion-button>
+<ion-button (click)="alertEliminar(item.content_id, item.genre_id)" color="danger" expand="full">
+  <ion-icon name="trash"></ion-icon>
+  Eliminar
+</ion-button>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Content ID</p>
+            <h2>{{ item.content_id }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Genre ID</p>
+            <h2>{{ item.genre_id }}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

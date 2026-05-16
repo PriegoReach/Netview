@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ng-container *ngIf="contenido as item">
+
+    <!-- ── HERO ── -->
+    <div class="hero">
+      <img [src]="item.imagen" [alt]="item.titulo" />
+      <div class="hero-gradient"></div>
+    </div>
+
+    <!-- ── INFO ── -->
+    <div class="info-bloque">
+      <h1 class="info-titulo">{{ item.titulo }}</h1>
+      <p class="info-meta">
+        {{ item.anio }} &bull; {{ item.clasificacion }} &bull;
+        <ion-icon name="star" class="star-icon"></ion-icon>
+        {{ item.calificacion }}
+      </p>
+
+      <!-- Botón principal Play -->
+      <ion-button
+        expand="block"
+        color="netview"
+        class="btn-reproducir"
+        (click)="reproducir()"
+      >
+        <ion-icon name="play" slot="start"></ion-icon>
+        Ver Ahora
+      </ion-button>
+
+      <p class="info-descripcion" *ngIf="item.descripcion">
+        {{ item.descripcion }}
+      </p>
+
+      <!-- ── BARRA DE ACCIONES (estilo Netflix) ── -->
+      <div class="acciones-bar">
+
+        <!-- Favorito -->
+        <button
+          class="accion-btn"
+          (click)="toggleFavorito()"
+          [disabled]="procesandoFav"
+        >
+          <ion-icon
+            [name]="esFavorito ? 'heart' : 'heart-outline'"
+            [class.activa]="esFavorito"
+          ></ion-icon>
+          <span [class.activa]="esFavorito">Favorito</span>
+        </button>
+
+        <!-- Calificar -->
+        <button class="accion-btn">
+          <ion-icon name="star-outline"></ion-icon>
+          <span>Calificar</span>
+        </button>
+
+        <!-- Compartir -->
+        <button class="accion-btn" (click)="compartir()">
+          <ion-icon name="share-social-outline"></ion-icon>
+          <span>Compartir</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── EPISODIOS (solo si es serie) ── -->
+    <div class="seccion-episodios" *ngIf="item.tipo === 'Series' && item.temporadas?.length">
+      <p class="seccion-titulo">EPISODIOS</p>
+
+      <div class="selector-temporada">
+        <ion-select
+          [(ngModel)]="temporadaActiva"
+          interface="popover"
+          (ionChange)="cambiarTemporada()"
+        >
+          <ion-select-option
+            *ngFor="let t of item.temporadas"
+            [value]="t.id"
+          >
+            Temporada {{ t.numero }}
+          </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="grid-episodios" *ngIf="episodiosTemporada.length > 0">
+        <div
+          class="episodio-card"
+          *ngFor="let ep of episodiosTemporada"
+          (click)="reproducirEpisodio(ep.id)"
+        >
+          <div class="episodio-thumb">
+            <img [src]="item.imagen" [alt]="'Episodio ' + ep.numero" />
+            <div class="episodio-overlay">
+              <ion-icon name="play-circle-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="episodio-info">
+            <p class="episodio-titulo">E{{ ep.numero }}. {{ ep.titulo }}</p>
+            <p class="episodio-duracion">{{ ep.duracion }} min</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 24px;"></div>
+
+  </ng-container>
+
+</ion-content>

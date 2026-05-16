@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-title class="netview-logo">NETVIEW</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="irNotificaciones()">
+        <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="irFavoritos()">
+        <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- ── HERO BANNER ── -->
+  <div class="hero-banner" *ngIf="destacado" (click)="verDetalle(destacado.id)">
+    <img [src]="destacado.imagen" [alt]="destacado.titulo" class="hero-img" />
+    <div class="hero-overlay">
+      <p class="hero-titulo">{{ destacado.titulo }}</p>
+      <p class="hero-meta">{{ destacado.anio }} &bull; {{ destacado.clasificacion }}</p>
+      <ion-button color="netview" size="small" class="hero-btn">
+        <ion-icon name="play" slot="start"></ion-icon>
+        Reproducir
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- ── CATEGORÍAS ── -->
+  <div class="categorias" *ngFor="let categoria of categorias">
+    <h2 class="categoria-titulo">{{ categoria.nombre }}</h2>
+
+    <div class="contenido-fila">
+      <div
+        class="contenido-card"
+        *ngFor="let item of categoria.items"
+        (click)="verDetalle(item.id)"
+      >
+        <div class="card-thumb">
+          <img [src]="item.imagen" [alt]="item.titulo" />
+          <div class="card-overlay">
+            <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+          </div>
+        </div>
+        <p class="card-titulo">{{ item.titulo }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 16px;"></div>
+
+</ion-content>

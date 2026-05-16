@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar Subscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">User ID</ion-label>
+    <ion-input type="number" [(ngModel)]="user_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Plan ID</ion-label>
+    <ion-input type="number" [(ngModel)]="plan_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Fecha de inicio</ion-label>
+    <ion-input type="date" [(ngModel)]="start_date"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Fecha de fin</ion-label>
+    <ion-input type="date" [(ngModel)]="end_date"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

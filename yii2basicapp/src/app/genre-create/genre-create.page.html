@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/genre-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Género</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nombre del Género</ion-label>
+    <ion-input type="text" [(ngModel)]="genre_name"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

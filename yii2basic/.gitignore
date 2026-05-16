@@ -1,0 +1,49 @@
+# ============================================================
+# Archivo: yii2basic/.gitignore
+# ============================================================
+
+# Composer
+/vendor/
+composer.phar
+
+# Yii2 runtime y assets generados
+/web/assets/
+/runtime/
+/tests/_output/
+
+# Logs
+*.log
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Configuración local sensible (DB credentials)
+/config/db-local.php
+
+# Uploads de usuarios (NO subir imágenes a Git)
+/web/imagenes/contenidos/
+/web/imagenes/avatares/
+!/web/imagenes/contenidos/.gitkeep
+!/web/imagenes/avatares/.gitkeep
+
+# Archivos temporales
+*.bak
+*.tmp
+
+# Docker volumes locales (si aplica)
+/data/
+
+# Node (si Yii usa assets de npm)
+/node_modules/
+
+# Compiled CSS/JS
+*.min.css.map
+*.min.js.map

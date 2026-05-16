@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/rating-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Rating</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Profile ID</ion-label>
+    <ion-input type="number" [(ngModel)]="profile_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Content ID</ion-label>
+    <ion-input type="number" [(ngModel)]="content_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Score (1-5)</ion-label>
+    <ion-input type="number" [(ngModel)]="score"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

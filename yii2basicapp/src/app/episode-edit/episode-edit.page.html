@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar Episodio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Temporada (season_id)</ion-label>
+    <ion-input type="number" [(ngModel)]="season_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Número de episodio</ion-label>
+    <ion-input type="number" [(ngModel)]="episode_number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Duración (minutos)</ion-label>
+    <ion-input type="number" [(ngModel)]="duration_minutes"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

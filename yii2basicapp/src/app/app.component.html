@@ -1,0 +1,62 @@
+<ion-app>
+  <!-- Menú lateral SOLO para administradores -->
+  <ion-menu contentId="main" *ngIf="auth.esAdmin()">
+    <ion-header>
+      <ion-toolbar color="netview">
+        <ion-title>Administración</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content [fullscreen]="true">
+
+      <!-- ── NAVEGACIÓN GENERAL ── -->
+      <ion-list>
+        <ion-list-header>
+          <ion-label class="header-label">NAVEGACIÓN</ion-label>
+        </ion-list-header>
+
+        <ion-menu-toggle auto-hide="true">
+          <ion-item
+            routerLink="/tabs/tab1"
+            routerDirection="root"
+            button
+            detail="true"
+          >
+            <ion-icon name="home" slot="start" class="item-icon"></ion-icon>
+            <ion-label>Volver a la app</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <!-- ── CRUDs ADMIN ── -->
+      <ion-list>
+        <ion-list-header>
+          <ion-label class="header-label">ADMINISTRACIÓN</ion-label>
+        </ion-list-header>
+
+        <ion-menu-toggle auto-hide="true" *ngFor="let enlace of enlaces">
+          <ion-item
+            [routerLink]="enlace.ruta"
+            routerDirection="root"
+            button
+          >
+            <ion-label>{{ enlace.texto }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <!-- ── CERRAR SESIÓN ── -->
+      <ion-list>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button (click)="cerrarSesion()" class="item-logout">
+            <ion-icon name="log-out-outline" slot="start" class="item-icon-logout"></ion-icon>
+            <ion-label color="danger">Cerrar sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Contenido principal -->
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

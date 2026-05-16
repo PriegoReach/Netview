@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Perfiles</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cargarDatos()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/profile-create">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar
+    [debounce]="800"
+    (ionInput)="handleInput($event)"
+    placeholder="Buscar perfil..."
+  ></ion-searchbar>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="items.length === 0">
+    <ion-icon name="person-outline" class="empty-icon"></ion-icon>
+    <p class="empty-texto" *ngIf="busqueda === ''">No hay perfiles registrados.</p>
+    <p class="empty-texto" *ngIf="busqueda !== ''">Sin resultados para "{{ busqueda }}".</p>
+  </div>
+
+  <!-- Listado -->
+  <ion-list *ngIf="items.length > 0">
+    <ion-item *ngFor="let item of items">
+
+      <ion-label class="ion-text-wrap">
+        <h3>{{ item.profile_name }}</h3>
+        <p>ID: {{ item.profile_id }} | User: {{ item.user_id }} | Kid: {{ item.kid }}</p>
+      </ion-label>
+
+      <!-- Botón Ver -->
+      <ion-button
+        [routerLink]="['/profile-detail', item.profile_id]"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="eye" slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Editar -->
+      <ion-button
+        routerLink="/profile-edit"
+        [queryParams]="{ id: item.profile_id }"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Eliminar (módulo 5) -->
+      <ion-button
+        (click)="alertEliminar(item.profile_id, item.profile_name)"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="trash" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <app-paginacion
+    [total]="total"
+    [porPagina]="porPagina"
+    (click)="pagina($event)"
+  ></app-paginacion>
+
+</ion-content>

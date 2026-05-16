@@ -1,0 +1,155 @@
+// src/app/content-edit/content-edit.page.scss
+
+.form-wrapper {
+  padding: 8px 4px 24px;
+}
+
+.seccion-titulo {
+  color:          var(--ion-color-medium);
+  font-size:      11px;
+  font-weight:    700;
+  letter-spacing: 1.5px;
+  margin:         14px 0 8px 4px;
+}
+
+.seccion-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  padding-right:   4px;
+
+  .seccion-titulo { margin: 0; }
+  ion-button { --border-radius: 6px; font-size: 11px; }
+}
+
+.campo {
+  --background:    var(--ion-card-background);
+  --border-radius: 8px;
+  margin-bottom:   4px;
+  border-radius:   8px;
+  overflow:        hidden;
+}
+
+.errores {
+  margin: 4px 0 8px 4px;
+  ion-note {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+// ── Subir imagen ─────────────────────────────────────────────────────────────
+.file-input { display: none; }
+
+.file-label {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  padding:         28px 16px;
+  border:          2px dashed var(--ion-color-medium);
+  border-radius:   10px;
+  background:      var(--ion-card-background);
+  cursor:          pointer;
+  transition:      border-color 0.2s, background 0.2s;
+
+  ion-icon { font-size: 38px; color: var(--color-netview); }
+  span    { color: var(--ion-text-color); font-size: 13px; font-weight: 600; }
+  small   { color: var(--ion-color-medium); font-size: 11px; }
+
+  &:hover, &:active {
+    border-color: var(--color-netview);
+    background:   var(--ion-item-background);
+  }
+}
+
+// Variante más compacta para cuando ya hay imagen y solo es "cambiar"
+.file-label-cambiar {
+  flex-direction: row;
+  padding:        12px 16px;
+  margin-top:     8px;
+
+  ion-icon { font-size: 22px; }
+  span     { font-size: 12px; }
+}
+
+// ── Preview ──────────────────────────────────────────────────────────────────
+.preview-wrapper {
+  position:      relative;
+  width:         100%;
+  border-radius: 10px;
+  overflow:      hidden;
+  background:    var(--ion-card-background);
+
+  .preview-img {
+    width:      100%;
+    max-height: 220px;
+    object-fit: cover;
+    display:    block;
+  }
+
+  .btn-quitar {
+    position: absolute;
+    top:      8px;
+    right:    8px;
+    --border-radius: 50%;
+    --padding-start: 6px;
+    --padding-end:   6px;
+    width:    32px;
+    height:   32px;
+  }
+
+  .badge-nueva, .badge-actual {
+    position:      absolute;
+    bottom:        8px;
+    left:          8px;
+    font-size:     10px;
+    font-weight:   700;
+    letter-spacing: 0.5px;
+    padding:       3px 8px;
+    border-radius: 4px;
+    color:         #fff;
+  }
+
+  .badge-nueva  { background: var(--color-netview); }
+  .badge-actual { background: rgba(0, 0, 0, 0.6); }
+}
+
+// ── Multi (géneros e idiomas) ────────────────────────────────────────────────
+.item-multi {
+  display:        flex;
+  flex-direction: row;
+  align-items:    center;
+  gap:            6px;
+  margin-bottom:  8px;
+
+  .campo-multi { flex: 1; }
+  .campo-multi-doble { flex: 1; }
+
+  .btn-eliminar {
+    --padding-start: 4px;
+    --padding-end:   4px;
+    height:          40px;
+    ion-icon { font-size: 20px; }
+  }
+}
+
+.vacio {
+  color:      var(--ion-color-medium);
+  font-size:  12px;
+  margin:     8px 4px;
+  text-align: center;
+  font-style: italic;
+  opacity:    0.7;
+}
+
+.btn-guardar {
+  margin-top:      20px;
+  --border-radius: 8px;
+  font-size:       14px;
+  font-weight:     700;
+  letter-spacing:  0.5px;
+}

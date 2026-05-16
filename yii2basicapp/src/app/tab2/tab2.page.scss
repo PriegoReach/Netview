@@ -1,0 +1,161 @@
+// tab2.page.scss
+// Solo estilos específicos de esta página.
+// Background, fuente Raleway y colores base ya vienen de app.component.scss.
+
+// ── Buscador ──────────────────────────────────────────────────────────────────
+.search-wrapper {
+  padding: 8px 8px 0;
+
+  ion-searchbar {
+    --background:          var(--ion-item-background);
+    --color:               var(--ion-text-color);
+    --placeholder-color:   var(--ion-color-medium);
+    --icon-color:          var(--ion-color-medium);
+    --border-radius:       10px;
+    --box-shadow:          none;
+    padding-inline-start:  0;
+    padding-inline-end:    0;
+  }
+}
+
+// ── Filtros de categoría ──────────────────────────────────────────────────────
+.filtros-wrapper {
+  padding: 6px 0 4px;
+}
+
+.filtros-fila {
+  display:                    flex;
+  flex-direction:             row;
+  gap:                        7px;
+  padding:                    4px 12px;
+  overflow-x:                 auto;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar { display: none; }
+  scrollbar-width: none;
+}
+
+.filtro-pill {
+  flex-shrink:   0;
+  background:    var(--ion-item-background);
+  color:         var(--ion-color-medium);
+  border:        1px solid var(--ion-color-medium);
+  border-radius: 20px;
+  padding:       4px 14px;
+  font-size:     12px;
+  font-family:   var(--ion-font-family);
+  cursor:        pointer;
+  transition:    background 0.15s, color 0.15s, border-color 0.15s;
+
+  // Pill activa usa el color netview definido en app.component.scss
+  &.activo {
+    background:   var(--color-netview);
+    color:        #ffffff;
+    border-color: var(--color-netview);
+    font-weight:  600;
+  }
+}
+
+// ── Grid de resultados (2 columnas) ───────────────────────────────────────────
+.grid-contenido {
+  display:               grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:                   10px;
+  padding:               10px 12px 0;
+}
+
+.grid-card {
+  cursor:        pointer;
+  border-radius: 8px;
+  overflow:      hidden;
+  background:    var(--ion-card-background);
+
+  .grid-thumb {
+    position:   relative;
+    width:      100%;
+    aspect-ratio: 16 / 9;
+    overflow:   hidden;
+    background: var(--ion-item-background);
+
+    img {
+      width:      100%;
+      height:     100%;
+      object-fit: cover;
+      display:    block;
+      transition: transform 0.2s ease;
+    }
+
+    .grid-overlay {
+      position:        absolute;
+      inset:           0;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      background:      rgba(0, 0, 0, 0);
+      transition:      background 0.2s ease;
+
+      ion-icon {
+        color:      var(--ion-text-color);
+        font-size:  32px;
+        opacity:    0;
+        transition: opacity 0.2s ease;
+      }
+    }
+
+    &:hover, &:active {
+      img { transform: scale(1.05); }
+
+      .grid-overlay {
+        background: rgba(0, 0, 0, 0.45);
+        ion-icon { opacity: 1; }
+      }
+    }
+  }
+
+  .grid-info {
+    padding: 7px 9px 8px;
+  }
+
+  .grid-titulo {
+    color:         var(--ion-text-color);
+    font-size:     12px;
+    font-weight:   600;
+    margin:        0 0 3px;
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+  }
+
+  .grid-meta {
+    color:     var(--ion-color-medium);
+    font-size: 10px;
+    margin:    0;
+  }
+}
+
+// ── Estado vacío ──────────────────────────────────────────────────────────────
+.empty-state {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  padding:         60px 24px;
+  gap:             12px;
+
+  .empty-icon {
+    font-size: 52px;
+    color:     var(--ion-color-medium);
+    opacity:   0.5;
+  }
+
+  .empty-texto {
+    color:      var(--ion-color-medium);
+    font-size:  14px;
+    text-align: center;
+    margin:     0;
+
+    strong {
+      color: var(--ion-text-color);
+    }
+  }
+}

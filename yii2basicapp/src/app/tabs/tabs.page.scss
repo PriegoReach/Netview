@@ -1,0 +1,38 @@
+// src/app/tabs/tabs.page.scss
+
+// ── Tab bar oscura tipo Netflix ───────────────────────────────────────────────
+ion-tab-bar {
+  --background:  #0f0f0f;
+  --color:       var(--ion-color-medium);
+  --color-selected: var(--color-netview);
+  --border:      0.5px solid #222;
+  height:        58px;
+  padding-bottom: 4px;
+}
+
+// ── Botones de cada tab ──────────────────────────────────────────────────────
+ion-tab-button {
+  --color:          var(--ion-color-medium);
+  --color-selected: var(--color-netview);
+  --ripple-color:   var(--color-netview);
+
+  ion-icon {
+    font-size: 22px;
+    margin-bottom: 2px;
+  }
+
+  ion-label {
+    font-size:   10px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+
+  // Tab activa: ícono y label en rojo NETVIEW
+  &.tab-selected {
+    ion-icon  { color: var(--color-netview); }
+    ion-label {
+      color:       var(--color-netview);
+      font-weight: 700;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-title>Explorar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- ── BUSCADOR ── -->
+  <div class="search-wrapper">
+    <ion-searchbar
+      [debounce]="800"
+      (ionInput)="handleInput($event)"
+      placeholder="Buscar series, películas..."
+      animated="true"
+    ></ion-searchbar>
+  </div>
+
+  <!-- ── FILTROS DE CATEGORÍA ── -->
+  <div class="filtros-wrapper">
+    <div class="filtros-fila">
+      <button
+        class="filtro-pill"
+        *ngFor="let cat of categoriasFiltro"
+        [class.activo]="categoriaActiva === cat.id"
+        (click)="filtrarCategoria(cat.id)"
+      >
+        {{ cat.nombre }}
+      </button>
+    </div>
+  </div>
+
+  <!-- ── ESTADO: Sin resultados ── -->
+  <div class="empty-state" *ngIf="contenidos.length === 0 && !cargando">
+    <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+    <p class="empty-texto">Sin resultados para <strong>"{{ busqueda }}"</strong></p>
+  </div>
+
+  <!-- ── GRID DE RESULTADOS ── -->
+  <div class="grid-contenido" *ngIf="contenidos.length > 0">
+    <div
+      class="grid-card"
+      *ngFor="let item of contenidos"
+      (click)="verDetalle(item.id)"
+    >
+      <!-- Thumbnail -->
+      <div class="grid-thumb">
+        <img [src]="item.imagen" [alt]="item.titulo" />
+        <div class="grid-overlay">
+          <ion-icon name="play-circle-outline"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="grid-info">
+        <p class="grid-titulo">{{ item.titulo }}</p>
+        <p class="grid-meta">{{ item.anio }} &bull; ★ {{ item.calificacion }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Espaciado inferior -->
+  <div style="height: 16px;"></div>
+
+</ion-content>

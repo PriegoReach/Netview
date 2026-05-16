@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- ── ESTADO VACÍO ── -->
+  <div class="empty-state" *ngIf="favoritos.length === 0 && !cargando">
+    <ion-icon name="heart-outline" class="empty-icon"></ion-icon>
+    <p class="empty-titulo">Aún no tienes favoritos</p>
+    <p class="empty-texto">
+      Marca contenido con el corazón ❤️ desde el detalle para verlo aquí.
+    </p>
+    <ion-button color="netview" routerLink="/tabs/tab1">
+      <ion-icon name="search" slot="start"></ion-icon>
+      Explorar contenido
+    </ion-button>
+  </div>
+
+  <!-- ── GRID DE FAVORITOS ── -->
+  <div class="grid-contenido" *ngIf="favoritos.length > 0">
+    <div
+      class="grid-card"
+      *ngFor="let item of favoritos"
+    >
+      <!-- Thumbnail clickeable -->
+      <div class="grid-thumb" (click)="verDetalle(item.id)">
+        <img [src]="item.imagen" [alt]="item.titulo" />
+        <div class="grid-overlay">
+          <ion-icon name="play-circle-outline"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Info + botón quitar -->
+      <div class="grid-info">
+        <div class="grid-text" (click)="verDetalle(item.id)">
+          <p class="grid-titulo">{{ item.titulo }}</p>
+          <p class="grid-meta">{{ item.anio }} &bull; ★ {{ item.calificacion }}</p>
+        </div>
+        <ion-button
+          fill="clear"
+          size="small"
+          color="danger"
+          class="btn-quitar"
+          (click)="quitarFavorito(item.id, item.titulo)"
+        >
+          <ion-icon name="heart" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 16px;"></div>
+</ion-content>

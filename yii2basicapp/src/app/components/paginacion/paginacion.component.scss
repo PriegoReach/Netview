@@ -1,0 +1,33 @@
+.swiper-container {
+  background-color: transparent;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.swiper-slide {
+  background-color: #C8C2AA;
+  color: #4D493E;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.active {
+  background-color: #686090;
+  color: #C8C2AA;
+  font-weight: bold;
+}

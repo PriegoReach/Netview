@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profile-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">User ID</ion-label>
+    <ion-input type="number" [(ngModel)]="user_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Nombre del perfil</ion-label>
+    <ion-input type="text" [(ngModel)]="profile_name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">¿Perfil infantil? (0/1)</ion-label>
+    <ion-input type="number" [(ngModel)]="is_kids"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

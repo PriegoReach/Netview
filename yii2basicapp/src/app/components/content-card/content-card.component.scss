@@ -1,0 +1,27 @@
+.netview-card {
+       background-color: #1f1f1f;
+       border-radius: 8px;
+       overflow: hidden;
+       margin: 6px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+       transition: transform 0.2s ease;
+   }
+
+   .netview-card:hover {
+       transform: scale(1.03);
+   }
+
+   .card-img {
+       width: 100%;
+       height: 200px;
+       object-fit: cover;
+   }
+
+   .card-titulo {
+       font-size: 1rem;
+       font-weight: 700;
+       color: #ffffff;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/content-language-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear ContentLanguage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Content ID</ion-label>
+    <ion-input type="number" [(ngModel)]="content_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Language ID</ion-label>
+    <ion-input type="number" [(ngModel)]="language_id"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Tipo (audio/subtitle)</ion-label>
+    <ion-input type="text" [(ngModel)]="language_type"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

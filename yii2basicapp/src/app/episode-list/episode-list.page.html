@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Episodios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cargarDatos()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/episode-create">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar
+    [debounce]="800"
+    (ionInput)="handleInput($event)"
+    placeholder="Buscar episodio..."
+  ></ion-searchbar>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="episodes.length === 0">
+    <ion-icon name="play-circle-outline" class="empty-icon"></ion-icon>
+    <p class="empty-texto" *ngIf="busqueda === ''">No hay episodios registrados.</p>
+    <p class="empty-texto" *ngIf="busqueda !== ''">Sin resultados para "{{ busqueda }}".</p>
+  </div>
+
+  <!-- Listado -->
+  <ion-list *ngIf="episodes.length > 0">
+    <ion-item *ngFor="let item of episodes">
+
+      <ion-label class="ion-text-wrap">
+        <h3>Episodio #{{ item.episode_number }}</h3>
+        <p>ID: {{ item.episode_id }} | Temporada: {{ item.season_id }} | {{ item.duration_minute }} min</p>
+      </ion-label>
+
+      <!-- Botón Ver -->
+      <ion-button
+        [routerLink]="['/episode-detail', item.episode_id]"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="eye" slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Editar -->
+      <ion-button
+        routerLink="/episode-edit"
+        [queryParams]="{ id: item.episode_id }"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Eliminar (módulo 5) -->
+      <ion-button
+        (click)="alertEliminar(item.episode_id, 'Ep. #' + item.episode_number + ' T' + item.season_id)"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="trash" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <app-paginacion
+    [total]="total"
+    [porPagina]="porPagina"
+    (click)="pagina($event)"
+  ></app-paginacion>
+
+</ion-content>

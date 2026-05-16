@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Content ID</ion-label>
+    <ion-input type="number" [(ngModel)]="content_id" disabled></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Genre ID</ion-label>
+    <ion-input type="number" [(ngModel)]="genre_id"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+</ion-content>

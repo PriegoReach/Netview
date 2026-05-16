@@ -1,0 +1,131 @@
+// tab1.page.scss
+// Solo estilos específicos de esta página.
+// Los colores base (background, text, toolbar) ya están
+// definidos globalmente en app.component.scss.
+
+// ── Hero Banner ──────────────────────────────────────────────────────────────
+.hero-banner {
+  position:      relative;
+  width:         100%;
+  height:        220px;
+  overflow:      hidden;
+  cursor:        pointer;
+  margin-bottom: 4px;
+
+  .hero-img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+  }
+
+  .hero-overlay {
+    position:   absolute;
+    bottom:     0;
+    left:       0;
+    right:      0;
+    padding:    16px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85) 60%);
+  }
+
+  .hero-titulo {
+    color:          var(--ion-text-color);      // heredado del tema global
+    font-size:      16px;
+    font-weight:    700;
+    margin:         0 0 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-meta {
+    color:       var(--ion-color-medium);
+    font-size:   12px;
+    margin:      0 0 8px;
+  }
+}
+
+// ── Sección de categoría ─────────────────────────────────────────────────────
+.categorias {
+  padding: 8px 0 0;
+}
+
+.categoria-titulo {
+  color:          var(--ion-text-color);
+  font-size:      14px;
+  font-weight:    600;
+  margin:         0 0 8px 14px;
+  letter-spacing: 0.2px;
+}
+
+// ── Fila horizontal con scroll ────────────────────────────────────────────────
+.contenido-fila {
+  display:                    flex;
+  flex-direction:             row;
+  gap:                        8px;
+  padding:                    0 14px 14px;
+  overflow-x:                 auto;
+  scroll-snap-type:           x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar { display: none; }
+  scrollbar-width: none;
+}
+
+// ── Card de contenido ─────────────────────────────────────────────────────────
+.contenido-card {
+  flex:              0 0 110px;
+  scroll-snap-align: start;
+  cursor:            pointer;
+
+  .card-thumb {
+    position:      relative;
+    width:         110px;
+    height:        62px;
+    border-radius: 6px;
+    overflow:      hidden;
+    background:    var(--ion-card-background);  // heredado del tema global
+
+    img {
+      width:      100%;
+      height:     100%;
+      object-fit: cover;
+      display:    block;
+      transition: transform 0.2s ease;
+    }
+
+    .card-overlay {
+      position:        absolute;
+      inset:           0;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      background:      rgba(0, 0, 0, 0);
+      transition:      background 0.2s ease;
+
+      .play-icon {
+        color:      var(--ion-text-color);
+        font-size:  28px;
+        opacity:    0;
+        transition: opacity 0.2s ease;
+      }
+    }
+
+    &:hover, &:active {
+      img { transform: scale(1.05); }
+
+      .card-overlay {
+        background: rgba(0, 0, 0, 0.45);
+        .play-icon { opacity: 1; }
+      }
+    }
+  }
+
+  .card-titulo {
+    color:         var(--ion-color-medium);
+    font-size:     10px;
+    margin:        5px 0 0;
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    max-width:     110px;
+  }
+}

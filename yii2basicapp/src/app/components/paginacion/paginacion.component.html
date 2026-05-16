@@ -1,0 +1,7 @@
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let pag of paginacionItems; let i = index" (click)="onClickSlide(i)" [ngClass]="{'active': activeIndex === i}">
+      {{ pag }}
+    </div>
+  </div>
+</div>

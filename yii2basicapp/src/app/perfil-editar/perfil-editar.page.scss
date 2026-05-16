@@ -1,0 +1,130 @@
+// src/app/perfil-editar/perfil-editar.page.scss
+
+.editar-wrapper {
+  padding: 16px 20px 32px;
+}
+
+// ── Sección de avatar ────────────────────────────────────────────────────────
+.avatar-section {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  padding:         16px 0 8px;
+  gap:             6px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width:    110px;
+  height:   110px;
+}
+
+.avatar-img {
+  width:         110px;
+  height:        110px;
+  border-radius: 50%;
+  object-fit:    cover;
+  border:        3px solid var(--color-netview);
+  display:       block;
+}
+
+.avatar-placeholder {
+  width:           110px;
+  height:          110px;
+  border-radius:   50%;
+  background:      var(--ion-card-background);
+  border:          3px dashed var(--ion-color-medium);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 52px;
+    color:     var(--ion-color-medium);
+  }
+}
+
+// Botón cámara flotante
+.avatar-btn {
+  position:        absolute;
+  bottom:          0;
+  right:           0;
+  width:           36px;
+  height:          36px;
+  border-radius:   50%;
+  background:      var(--color-netview);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  cursor:          pointer;
+  border:          3px solid var(--ion-background-color);
+  transition:      transform 0.15s;
+
+  ion-icon {
+    color:     #fff;
+    font-size: 16px;
+  }
+
+  &:active { transform: scale(0.92); }
+}
+
+.avatar-input { display: none; }
+
+.avatar-hint {
+  color:     var(--ion-color-medium);
+  font-size: 11px;
+  margin:    8px 0 0;
+}
+
+// ── Formulario ───────────────────────────────────────────────────────────────
+.seccion-titulo {
+  color:          var(--ion-color-medium);
+  font-size:      11px;
+  font-weight:    700;
+  letter-spacing: 1.5px;
+  margin:         24px 0 10px 4px;
+}
+
+.campo {
+  --background:    var(--ion-card-background);
+  --border-radius: 8px;
+  margin-bottom:   4px;
+  border-radius:   8px;
+  overflow:        hidden;
+}
+
+.errores {
+  margin: 4px 0 10px 4px;
+
+  ion-note {
+    font-size:   11px;
+    display:     flex;
+    align-items: center;
+    gap:         4px;
+  }
+}
+
+.nota {
+  color:     var(--ion-color-medium);
+  font-size: 11px;
+  margin:    4px 0 10px 4px;
+  opacity:   0.7;
+}
+
+.toggle-eye {
+  text-align: right;
+  margin-top: 4px;
+
+  ion-button {
+    --color: var(--ion-color-medium);
+    font-size: 11px;
+  }
+}
+
+.btn-submit {
+  margin-top:      24px;
+  --border-radius: 8px;
+  font-size:       14px;
+  font-weight:     700;
+  letter-spacing:  0.5px;
+}

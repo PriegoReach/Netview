@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="netview">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Historial de Visionado</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cargarDatos()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/watch-history-create">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar
+    [debounce]="800"
+    (ionInput)="handleInput($event)"
+    placeholder="Buscar historial..."
+  ></ion-searchbar>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="items.length === 0">
+    <ion-icon name="time-outline" class="empty-icon"></ion-icon>
+    <p class="empty-texto" *ngIf="busqueda === ''">No hay registros en el historial.</p>
+    <p class="empty-texto" *ngIf="busqueda !== ''">Sin resultados para "{{ busqueda }}".</p>
+  </div>
+
+  <!-- Listado -->
+  <ion-list *ngIf="items.length > 0">
+    <ion-item *ngFor="let item of items">
+
+      <ion-label class="ion-text-wrap">
+        <h3>Perfil {{ item.profile_id }} → Contenido {{ item.content_id }}</h3>
+        <p>ID: {{ item.history_id }} | Episodio: {{ item.episode_id }} | Visto: {{ item.watched_seconds }}s</p>
+      </ion-label>
+
+      <!-- Botón Ver -->
+      <ion-button
+        [routerLink]="['/watch-history-detail', item.history_id]"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="eye" slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Editar -->
+      <ion-button
+        routerLink="/watch-history-edit"
+        [queryParams]="{ id: item.history_id }"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+
+      <!-- Botón Eliminar (módulo 5) -->
+      <ion-button
+        (click)="alertEliminar(item.history_id, 'P' + item.profile_id + '/C' + item.content_id + ' (' + item.watched_seconds + 's)')"
+        fill="clear"
+        slot="end"
+      >
+        <ion-icon name="trash" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <app-paginacion
+    [total]="total"
+    [porPagina]="porPagina"
+    (click)="pagina($event)"
+  ></app-paginacion>
+
+</ion-content>

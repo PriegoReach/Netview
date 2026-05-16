@@ -1,0 +1,19 @@
+# Archivo: yii2basicapp/.dockerignore
+# Evita copiar archivos pesados al contexto del build
+
+node_modules
+.angular
+www
+dist
+build
+coverage
+.idea
+.vscode
+.DS_Store
+*.log
+npm-debug.log
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md

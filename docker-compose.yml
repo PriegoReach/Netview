@@ -1,3 +1,13 @@
+# ============================================================
+# Archivo: docker-compose.yml (raíz del proyecto)
+#
+# Orquesta:
+#   - php       : Backend Yii2 (puerto 80)
+#   - db        : MariaDB (puerto 3308)
+#   - phpmyadmin: Admin DB (puerto 8080)
+#   - frontend  : Ionic + Nginx (puerto 8100) 
+# ============================================================
+
 services:
 
   php:
@@ -28,7 +38,7 @@ services:
       MYSQL_PASSWORD: yii2password
     volumes:
       - db_data:/var/lib/mysql
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql/init.sql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - netview_network
 
@@ -45,6 +55,19 @@ services:
       - db
     networks:
       - netview_network
+
+  frontend:
+    build:
+      context: ./yii2basicapp
+      dockerfile: Dockerfile
+    container_name: netview_frontend
+    ports:
+      - "8100:80"
+    depends_on:
+      - php
+    networks:
+      - netview_network
+    restart: unless-stopped
 
 networks:
   netview_network:

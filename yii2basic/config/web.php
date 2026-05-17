@@ -47,7 +47,7 @@ $config = [
 
                 $response->headers->set(
                     'Access-Control-Allow-Origin',
-                    'http://localhost:8100'
+		    'http://localhost:8100'
                 );
 
                 $response->headers->set(

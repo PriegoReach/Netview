@@ -9,12 +9,12 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- Estado vacío con logo -->
   <div class="empty-state">
-    <ion-icon name="notifications-off-outline" class="empty-icon"></ion-icon>
-    <p class="empty-titulo">Estás al día</p>
+    <img src="assets/logo-icono.png" alt="Netview" class="empty-logo" />
+    <p class="empty-titulo">Sin notificaciones</p>
     <p class="empty-texto">
-      Aquí aparecerán notificaciones sobre nuevos contenidos,
-      recomendaciones y actualizaciones.
+      Cuando tengamos novedades o nuevos contenidos, aparecerán aquí.
     </p>
     <ion-button color="netview" routerLink="/tabs/tab1">
       <ion-icon name="home" slot="start"></ion-icon>

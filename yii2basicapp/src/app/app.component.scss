@@ -145,4 +145,24 @@ ion-menu ion-list {
 ion-menu ion-list:not(:last-child) {
   border-bottom: 1px solid var(--ion-card-background);
 }
- 
+
+/* ── Logo en header del menú admin ────────────── */
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 8px;
+}
+
+.menu-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.menu-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}

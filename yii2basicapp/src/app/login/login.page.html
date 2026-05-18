@@ -2,9 +2,10 @@
 
   <div class="login-wrapper">
 
-    <!-- Logo -->
+    <!-- Logo NETVIEW -->
     <div class="logo-wrapper">
-      <h1 class="logo">NETVIEW</h1>
+      <img src="assets/logo-completo.png" alt="Netview" class="logo-img" />
+      <p class="subtitulo">Tu plataforma de streaming</p>
     </div>
 
     <!-- Formulario -->
@@ -17,7 +18,6 @@
           type="text"
           formControlName="username"
           autocomplete="username"
-          inputmode="text"
         ></ion-input>
       </ion-item>
       <div class="errores" *ngFor="let m of mensajes.username">
@@ -30,7 +30,6 @@
       <ion-item lines="none" class="campo">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input
-          #passwordInput
           [type]="tipoPassword"
           formControlName="password"
           clearOnEdit="false"
@@ -59,7 +58,7 @@
         class="btn-submit"
         [disabled]="!loginForm.valid"
       >
-        Iniciar Sesión
+        Iniciar sesión
       </ion-button>
     </form>
 

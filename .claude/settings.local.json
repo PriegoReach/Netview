@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\" -Recurse)",
+      "Bash(Select-Object FullName, Name)",
+      "Bash(mv \"c:/Users/KAKAWOL/netview/yii2basicapp/src/assets/Logo Completo.png\" \"c:/Users/KAKAWOL/netview/yii2basicapp/src/assets/logo-completo.png\")",
+      "PowerShell(\\(Get-Item \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\\\\logo-completo.png\"\\).Length; \\(Get-Item \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\\\\logo-icono.png\"\\).Length)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\KAKAWOL\\netview\\yii2basicapp\\src\\assets"
+    ]
+  }
+}

@@ -27,6 +27,17 @@ export class ContentDetailPage {
     this.cargarDetalle();
   }
 
+  /**
+   * Simbología de tipo de contenido (Manual de Identidad):
+   * mapea content_type a la clase de insignia serie / kids / película.
+   */
+  tipoBadgeClass(tipo: string): string {
+    const t = (tipo || '').toLowerCase();
+    if (t.includes('serie')) { return 'nv-badge--serie'; }
+    if (t.includes('kid') || t.includes('infantil')) { return 'nv-badge--kids'; }
+    return 'nv-badge--pelicula';
+  }
+
   async cargarDetalle() {
     const id = this.route.snapshot.paramMap.get('content_id');
     const loading = await this.loadingCtrl.create({ message: 'Cargando', spinner: 'bubbles' });

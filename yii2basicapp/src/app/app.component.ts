@@ -12,6 +12,11 @@ interface Enlace {
   texto: string;
 }
 
+interface SeccionMenu {
+  titulo:  string;
+  enlaces: Enlace[];
+}
+
 @Component({
   selector:    'app-root',
   templateUrl: 'app.component.html',
@@ -20,20 +25,37 @@ interface Enlace {
 })
 export class AppComponent {
 
-  enlaces: Enlace[] = [
-    { ruta: '/content-list',           texto: 'Content' },
-    { ruta: '/content-genre-list',     texto: 'Content Genre' },
-    { ruta: '/content-language-list',  texto: 'Content Language' },
-    { ruta: '/episode-list',           texto: 'Episode' },
-    { ruta: '/favorite-list',          texto: 'Favorite' },
-    { ruta: '/genre-list',             texto: 'Genre' },
-    { ruta: '/language-list',          texto: 'Language' },
-    { ruta: '/profile-list',           texto: 'Profile' },
-    { ruta: '/rating-list',            texto: 'Rating' },
-    { ruta: '/season-list',            texto: 'Season' },
-    { ruta: '/subscription-list',      texto: 'Subscription' },
-    { ruta: '/subscription-plan-list', texto: 'Subscription Plan' },
-    { ruta: '/watch-history-list',     texto: 'Watch History' },
+  // Menú admin agrupado: las 13 gestiones siguen accesibles, organizadas
+  // por su naturaleza — Catálogo, Relaciones (tablas puente) y Usuarios.
+  secciones: SeccionMenu[] = [
+    {
+      titulo: 'Catálogo',
+      enlaces: [
+        { ruta: '/content-list',           texto: 'Content' },
+        { ruta: '/genre-list',             texto: 'Genre' },
+        { ruta: '/language-list',          texto: 'Language' },
+        { ruta: '/season-list',            texto: 'Season' },
+        { ruta: '/episode-list',           texto: 'Episode' },
+        { ruta: '/subscription-plan-list', texto: 'Subscription Plan' },
+      ],
+    },
+    {
+      titulo: 'Relaciones',
+      enlaces: [
+        { ruta: '/content-genre-list',    texto: 'Content Genre' },
+        { ruta: '/content-language-list', texto: 'Content Language' },
+      ],
+    },
+    {
+      titulo: 'Usuarios',
+      enlaces: [
+        { ruta: '/profile-list',       texto: 'Profile' },
+        { ruta: '/subscription-list',  texto: 'Subscription' },
+        { ruta: '/favorite-list',      texto: 'Favorite' },
+        { ruta: '/rating-list',        texto: 'Rating' },
+        { ruta: '/watch-history-list', texto: 'Watch History' },
+      ],
+    },
   ];
 
   constructor(

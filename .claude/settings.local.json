@@ -1,13 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(Get-ChildItem \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\" -Recurse)",
-      "Bash(Select-Object FullName, Name)",
-      "Bash(mv \"c:/Users/KAKAWOL/netview/yii2basicapp/src/assets/Logo Completo.png\" \"c:/Users/KAKAWOL/netview/yii2basicapp/src/assets/logo-completo.png\")",
-      "PowerShell(\\(Get-Item \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\\\\logo-completo.png\"\\).Length; \\(Get-Item \"c:\\\\Users\\\\KAKAWOL\\\\netview\\\\yii2basicapp\\\\src\\\\assets\\\\logo-icono.png\"\\).Length)"
-    ],
-    "additionalDirectories": [
-      "c:\\Users\\KAKAWOL\\netview\\yii2basicapp\\src\\assets"
+      "Bash(npx ng *)",
+      "Bash(php -l /c/Users/KAKAWOL/netview/yii2basic/controllers/UsuarioController.php)",
+      "Bash(php -l /c/Users/KAKAWOL/netview/yii2basic/config/web.php)",
+      "Bash(cat .dockerignore)",
+      "Bash(ls nginx.conf)",
+      "Bash(cat src/environments/environment.prod.ts)",
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(curl -sI http://localhost:8100/)",
+      "Bash(curl -sI http://localhost:8100/tabs/tab1)",
+      "Bash(curl -sI \"http://localhost:8100/assets/content/Batman%20dark%20night%20trailer.mp4\")"
     ]
   }
 }

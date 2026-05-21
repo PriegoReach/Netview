@@ -36,7 +36,12 @@
 
       <ion-label class="ion-text-wrap">
         <h3>{{ item.title }}</h3>
-        <p>ID: {{ item.content_id }} | Tipo: {{ item.content_type }} | {{ item.duration_minutes }} min</p>
+        <p class="meta-fila">
+          <span class="nv-badge" [ngClass]="tipoBadgeClass(item.content_type)">
+            {{ item.content_type }}
+          </span>
+          ID {{ item.content_id }} · {{ item.duration_minutes }} min
+        </p>
       </ion-label>
 
       <!-- Botón Ver -->

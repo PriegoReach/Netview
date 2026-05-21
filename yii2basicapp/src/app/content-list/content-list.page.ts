@@ -32,6 +32,17 @@ export class ContentListPage {
     this.cargarDatos();
   }
 
+  /**
+   * Simbología de tipo de contenido (Manual de Identidad):
+   * mapea content_type a la clase de insignia serie / kids / película.
+   */
+  tipoBadgeClass(tipo: string): string {
+    const t = (tipo || '').toLowerCase();
+    if (t.includes('serie')) { return 'nv-badge--serie'; }
+    if (t.includes('kid') || t.includes('infantil')) { return 'nv-badge--kids'; }
+    return 'nv-badge--pelicula';
+  }
+
   handleInput(event: any) {
     this.busqueda = (event.target.value ?? '').toLowerCase();
     this.page = 1;

@@ -58,9 +58,14 @@
         </button>
 
         <!-- Calificar -->
-        <button class="accion-btn">
-          <ion-icon name="star-outline"></ion-icon>
-          <span>Calificar</span>
+        <button class="accion-btn" (click)="calificar()">
+          <ion-icon
+            [name]="miCalificacion > 0 ? 'star' : 'star-outline'"
+            [class.activa]="miCalificacion > 0"
+          ></ion-icon>
+          <span [class.activa]="miCalificacion > 0">
+            {{ miCalificacion > 0 ? 'Tu voto: ' + miCalificacion + '★' : 'Calificar' }}
+          </span>
         </button>
 
         <!-- Compartir -->
@@ -112,6 +117,33 @@
     </div>
 
     <div style="height: 24px;"></div>
+
+    <!-- ── REPRODUCTOR DE VIDEO ── -->
+    <div class="reproductor-overlay" *ngIf="reproduciendo">
+      <button class="reproductor-cerrar" (click)="cerrarReproductor()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+      <video
+        class="reproductor-video"
+        [src]="videoUrl"
+        controls
+        autoplay
+        playsinline
+        (loadedmetadata)="onVideoCargado($event)"
+        (timeupdate)="onVideoProgreso($event)"
+        (ended)="onVideoFinalizado()"
+      ></video>
+
+      <p class="reproductor-estado" *ngIf="videoCompletado">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        Visto completo &middot; el progreso se reinició
+      </p>
+      <p class="reproductor-estado" *ngIf="!videoCompletado && posicionInicial > 0">
+        <ion-icon name="play-skip-forward"></ion-icon>
+        Reanudando desde {{ posicionInicial }}s
+      </p>
+    </div>
 
   </ng-container>
 

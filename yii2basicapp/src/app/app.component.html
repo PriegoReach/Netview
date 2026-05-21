@@ -31,17 +31,21 @@
         </ion-menu-toggle>
       </ion-list>
 
-      <!-- ── CRUDs ADMIN ── -->
-      <ion-list>
+      <!-- ── CRUDs ADMIN · agrupados por sección ── -->
+      <ion-list *ngFor="let seccion of secciones">
         <ion-list-header>
-          <ion-label class="header-label">ADMINISTRACIÓN</ion-label>
+          <ion-label class="header-label">{{ seccion.titulo }}</ion-label>
         </ion-list-header>
 
-        <ion-menu-toggle auto-hide="true" *ngFor="let enlace of enlaces">
+        <ion-menu-toggle
+          auto-hide="true"
+          *ngFor="let enlace of seccion.enlaces"
+        >
           <ion-item
             [routerLink]="enlace.ruta"
             routerDirection="root"
             button
+            detail="true"
           >
             <ion-label>{{ enlace.texto }}</ion-label>
           </ion-item>

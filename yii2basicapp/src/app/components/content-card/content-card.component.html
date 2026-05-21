@@ -1,12 +1,23 @@
 <ion-card class="netview-card">
-     <img [src]="portada || 'assets/img/sin-portada.png'" [alt]="titulo" class="card-img"/>
 
-     <ion-card-header>
-       <ion-card-subtitle color="gris">{{ tipo }} • {{ anio }}</ion-card-subtitle>
-       <ion-card-title class="card-titulo">{{ titulo }}</ion-card-title>
-     </ion-card-header>
+  <!-- Portada de contenido · relación de aspecto 2:3 (cartel vertical) -->
+  <div class="card-poster">
+    <img [src]="portada || 'assets/img/sin-portada.png'" [alt]="titulo" class="card-img"/>
 
-     <ion-card-content>
-       <ion-badge color="netview">⭐ {{ calificacion | number:'1.1-1' }}</ion-badge>
-     </ion-card-content>
-   </ion-card>
+    <!-- Simbología de tipo de contenido -->
+    <span class="nv-badge card-tipo" [ngClass]="tipoBadgeClass" *ngIf="tipo">
+      {{ tipo }}
+    </span>
+
+    <!-- Calificación sobre el degradado inferior -->
+    <span class="card-rating" *ngIf="calificacion != null">
+      ⭐ {{ calificacion | number:'1.1-1' }}
+    </span>
+  </div>
+
+  <ion-card-header>
+    <ion-card-subtitle color="gris">{{ anio }}</ion-card-subtitle>
+    <ion-card-title class="card-titulo">{{ titulo }}</ion-card-title>
+  </ion-card-header>
+
+</ion-card>

@@ -1,2 +1,181 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// =============================================================================
+//  NETVIEW · Sistema de diseño  (Manual de Identidad Gráfica)
+// -----------------------------------------------------------------------------
+//  Fuente única de verdad para color, superficies y estados.
+//  Cargado al final del bundle global → tiene prioridad sobre cualquier otro
+//  estilo. No definir paletas de color fuera de este archivo.
+//  Docs Ionic theming: https://ionicframework.com/docs/theming/
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+//  1 · Tokens de marca  (valores crudos del manual)
+// -----------------------------------------------------------------------------
+:root {
+  // ── Rojo Netview · color primario ──────────────────────────────────────────
+  --nv-rojo:            #e24b4a;   // Base   · HSL 0°, 73%, 59%
+  --nv-rojo-tint:       #e65f5e;   // Tint   · acentos claros / hover
+  --nv-rojo-shade:      #c73f3e;   // Shade  · pressed / bordes
+  --nv-rojo-contraste:  #ffffff;   // Texto sobre rojo
+
+  // ── Neutros oscuros · base cinematográfica ─────────────────────────────────
+  --nv-negro-cine:      #0d0d12;   // Fondos principales
+  --nv-carbon:          #1a1a22;   // Tarjetas, toolbars, superficies
+  --nv-grafito:         #3a3a45;   // Bordes, divisores, superficies elevadas
+  --nv-gris-medio:      #9a9aa6;   // Texto secundario / inactivo
+  --nv-gris-niebla:     #f2f2f5;   // Texto principal sobre fondo oscuro
+
+  // ── Colores de estado (semánticos) ─────────────────────────────────────────
+  --nv-exito:           #2dd36f;
+  --nv-advertencia:     #ffc409;
+  --nv-peligro:         #eb445a;
+  --nv-info:            #3880ff;
+
+  // Alias retrocompatible usado por componentes existentes.
+  --color-netview:      var(--nv-rojo);
+}
+
+// -----------------------------------------------------------------------------
+//  2 · Tema Ionic · oscuro cinematográfico permanente
+//     Regla 60/30/10: 60% neutros oscuros · 30% blanco/gris · 10% rojo Netview.
+// -----------------------------------------------------------------------------
+:root {
+  // ── Color primario = Rojo Netview ──────────────────────────────────────────
+  --ion-color-primary:               #e24b4a;
+  --ion-color-primary-rgb:           226, 75, 74;
+  --ion-color-primary-contrast:      #ffffff;
+  --ion-color-primary-contrast-rgb:  255, 255, 255;
+  --ion-color-primary-shade:         #c73f3e;
+  --ion-color-primary-tint:          #e65f5e;
+
+  // ── Secundario / terciario → variantes del rojo (10% reservado a la marca) ──
+  --ion-color-secondary:             #e65f5e;
+  --ion-color-secondary-rgb:         230, 95, 94;
+  --ion-color-secondary-contrast:    #ffffff;
+  --ion-color-secondary-contrast-rgb:255, 255, 255;
+  --ion-color-secondary-shade:       #ca5453;
+  --ion-color-secondary-tint:        #e96f6e;
+
+  --ion-color-tertiary:              #c73f3e;
+  --ion-color-tertiary-rgb:          199, 63, 62;
+  --ion-color-tertiary-contrast:     #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade:        #af3837;
+  --ion-color-tertiary-tint:         #cd5251;
+
+  // ── Estados semánticos ─────────────────────────────────────────────────────
+  --ion-color-success:               #2dd36f;
+  --ion-color-success-rgb:           45, 211, 111;
+  --ion-color-success-contrast:      #000000;
+  --ion-color-success-contrast-rgb:  0, 0, 0;
+  --ion-color-success-shade:         #28ba62;
+  --ion-color-success-tint:          #42d77d;
+
+  --ion-color-warning:               #ffc409;
+  --ion-color-warning-rgb:           255, 196, 9;
+  --ion-color-warning-contrast:      #000000;
+  --ion-color-warning-contrast-rgb:  0, 0, 0;
+  --ion-color-warning-shade:         #e0ac08;
+  --ion-color-warning-tint:          #ffca22;
+
+  --ion-color-danger:                #eb445a;
+  --ion-color-danger-rgb:            235, 68, 90;
+  --ion-color-danger-contrast:       #ffffff;
+  --ion-color-danger-contrast-rgb:   255, 255, 255;
+  --ion-color-danger-shade:          #cf3c4f;
+  --ion-color-danger-tint:           #ed576b;
+
+  // ── Neutros mapeados a la escala Ionic ─────────────────────────────────────
+  --ion-color-dark:                  #0d0d12;   // Negro cine
+  --ion-color-dark-rgb:              13, 13, 18;
+  --ion-color-dark-contrast:         #ffffff;
+  --ion-color-dark-contrast-rgb:     255, 255, 255;
+  --ion-color-dark-shade:            #0b0b10;
+  --ion-color-dark-tint:             #25252a;
+
+  --ion-color-medium:                #9a9aa6;   // Gris medio
+  --ion-color-medium-rgb:            154, 154, 166;
+  --ion-color-medium-contrast:       #000000;
+  --ion-color-medium-contrast-rgb:   0, 0, 0;
+  --ion-color-medium-shade:          #888892;
+  --ion-color-medium-tint:           #a4a4af;
+
+  --ion-color-light:                 #1a1a22;   // Carbón (superficie clara en tema oscuro)
+  --ion-color-light-rgb:             26, 26, 34;
+  --ion-color-light-contrast:        #ffffff;
+  --ion-color-light-contrast-rgb:    255, 255, 255;
+  --ion-color-light-shade:           #17171e;
+  --ion-color-light-tint:            #313138;
+
+  // ── Fondo, texto y superficies ─────────────────────────────────────────────
+  --ion-background-color:            #0d0d12;
+  --ion-background-color-rgb:        13, 13, 18;
+
+  --ion-text-color:                  #f2f2f5;
+  --ion-text-color-rgb:              242, 242, 245;
+
+  --ion-toolbar-background:          #1a1a22;
+  --ion-toolbar-color:               #f2f2f5;
+
+  --ion-item-background:             #1a1a22;
+  --ion-card-background:             #1a1a22;
+
+  --ion-border-color:                #3a3a45;
+  --ion-tab-bar-background:          #0d0d12;
+  --ion-tab-bar-color:               #9a9aa6;
+  --ion-tab-bar-color-selected:      #e24b4a;
+
+  // ── Escala de pasos (blend Negro cine → Gris niebla) ───────────────────────
+  --ion-color-step-50:               #18181d;
+  --ion-color-step-100:              #242429;
+  --ion-color-step-150:              #2f2f34;
+  --ion-color-step-200:              #3b3b3f;
+  --ion-color-step-250:              #46464b;
+  --ion-color-step-300:              #525256;
+  --ion-color-step-350:              #5d5d61;
+  --ion-color-step-400:              #69696d;
+  --ion-color-step-450:              #747478;
+  --ion-color-step-500:              #808083;
+  --ion-color-step-550:              #8b8b8f;
+  --ion-color-step-600:              #97979a;
+  --ion-color-step-650:              #a2a2a5;
+  --ion-color-step-700:              #adadb1;
+  --ion-color-step-750:              #b9b9bc;
+  --ion-color-step-800:              #c4c4c8;
+  --ion-color-step-850:              #d0d0d3;
+  --ion-color-step-900:              #dbdbde;
+  --ion-color-step-950:              #e7e7ea;
+}
+
+// -----------------------------------------------------------------------------
+//  3 · Colores Ionic personalizados  (uso: <ion-* color="...">)
+// -----------------------------------------------------------------------------
+
+// Rojo Netview — color de marca para acciones y acentos.
+.ion-color-netview {
+  --ion-color-base:         var(--nv-rojo);
+  --ion-color-base-rgb:     226, 75, 74;
+  --ion-color-contrast:     #ffffff;
+  --ion-color-contrast-rgb: 255, 255, 255;
+  --ion-color-shade:        var(--nv-rojo-shade);
+  --ion-color-tint:         var(--nv-rojo-tint);
+}
+
+// Gris — texto secundario / metadatos (usado por content-card y otros).
+.ion-color-gris {
+  --ion-color-base:         var(--nv-gris-medio);
+  --ion-color-base-rgb:     154, 154, 166;
+  --ion-color-contrast:     #000000;
+  --ion-color-contrast-rgb: 0, 0, 0;
+  --ion-color-shade:        #888892;
+  --ion-color-tint:         #a4a4af;
+}
+
+// Carbón — superficies oscuras (toolbars de detalle, chips neutros).
+.ion-color-carbon {
+  --ion-color-base:         var(--nv-carbon);
+  --ion-color-base-rgb:     26, 26, 34;
+  --ion-color-contrast:     #f2f2f5;
+  --ion-color-contrast-rgb: 242, 242, 245;
+  --ion-color-shade:        #17171e;
+  --ion-color-tint:         #313138;
+}

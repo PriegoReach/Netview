@@ -273,6 +273,12 @@ $config = [
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/favoritos',                'route' => 'usuario/favoritos',        'verb' => 'GET'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/favoritos',                'route' => 'usuario/agregar-favorito', 'verb' => 'POST'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/favoritos/<content_id:\d+>', 'route' => 'usuario/quitar-favorito',  'verb' => 'DELETE'],
+
+                // Usuario Rating e Historial (cliente)
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/calificar',                    'route' => 'usuario/calificar',           'verb' => 'POST'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/calificacion/<content_id:\d+>', 'route' => 'usuario/mi-calificacion',     'verb' => 'GET'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/historial',                    'route' => 'usuario/registrar-historial', 'verb' => 'POST'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'usuario/historial/<content_id:\d+>',   'route' => 'usuario/mi-historial',        'verb' => 'GET'],
             ],
         ],
     ],

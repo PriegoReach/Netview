@@ -26,13 +26,10 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /**
- * Ionic Dark Mode
+ * Tema NETVIEW
  * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
+ * El tema es oscuro cinematográfico de forma permanente: se define
+ * explícitamente en src/theme/variables.scss, por lo que NO se importa
+ * ninguna paleta dark.* de Ionic (evita que el modo del sistema lo altere).
  */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
 @import "./app/app.component.scss";

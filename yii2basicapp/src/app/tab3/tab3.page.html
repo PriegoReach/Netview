@@ -16,7 +16,16 @@
     <div class="avatar">
       <img [src]="usuario.avatar" [alt]="usuario.nombre" />
     </div>
-    <p class="perfil-nombre">{{ usuario.nombre }}</p>
+    <div class="perfil-nombre-row">
+      <p class="perfil-nombre">{{ usuario.nombre }}</p>
+      <!-- Simbología de rol: insignia Admin (rojo) o Cliente (negro) -->
+      <span
+        class="nv-badge"
+        [ngClass]="auth.esAdmin() ? 'nv-badge--admin' : 'nv-badge--cliente'"
+      >
+        {{ auth.esAdmin() ? 'Admin' : 'Cliente' }}
+      </span>
+    </div>
     <p class="perfil-email">{{ usuario.email }}</p>
   </div>
 

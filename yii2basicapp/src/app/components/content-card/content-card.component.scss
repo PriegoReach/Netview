@@ -1,27 +1,69 @@
+// Content card · NETVIEW
+// Portada vertical 2:3 según el Manual de Identidad Gráfica.
+
 .netview-card {
-       background-color: #1f1f1f;
-       border-radius: 8px;
-       overflow: hidden;
-       margin: 6px;
-       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-       transition: transform 0.2s ease;
-   }
+  --background:  var(--ion-card-background);
+  border-radius: 10px;
+  overflow:      hidden;
+  margin:        6px;
+  box-shadow:    0 4px 14px rgba(0, 0, 0, 0.55);
+  transition:    transform 0.2s ease;
+}
 
-   .netview-card:hover {
-       transform: scale(1.03);
-   }
+.netview-card:hover {
+  transform: scale(1.03);
+}
 
-   .card-img {
-       width: 100%;
-       height: 200px;
-       object-fit: cover;
-   }
+// ── Portada · cartel vertical 2:3 ──────────────────────────────────────────────
+.card-poster {
+  position:      relative;
+  width:         100%;
+  aspect-ratio:  2 / 3;
+  overflow:      hidden;
+  background:    var(--nv-grafito);
 
-   .card-titulo {
-       font-size: 1rem;
-       font-weight: 700;
-       color: #ffffff;
-       white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-   }
+  // Degradado inferior para legibilidad del texto superpuesto.
+  &::after {
+    content:    '';
+    position:   absolute;
+    inset:      auto 0 0 0;
+    height:     45%;
+    background: linear-gradient(transparent, rgba(13, 13, 18, 0.9));
+    pointer-events: none;
+  }
+}
+
+.card-img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  display:    block;
+}
+
+// Insignia de tipo de contenido (simbología) — esquina superior izquierda.
+.card-tipo {
+  position: absolute;
+  top:      8px;
+  left:     8px;
+  z-index:  1;
+}
+
+// Calificación — esquina inferior derecha, sobre el degradado.
+.card-rating {
+  position:    absolute;
+  right:       8px;
+  bottom:      8px;
+  z-index:     1;
+  font-size:   11px;
+  font-weight: 700;
+  color:       #ffffff;
+}
+
+.card-titulo {
+  font-size:     1rem;
+  font-weight:   700;
+  color:         var(--ion-text-color);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}

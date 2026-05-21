@@ -1,152 +1,82 @@
+// =============================================================================
+//  NETVIEW · Estilos globales del shell
+// -----------------------------------------------------------------------------
+//  La paleta y los tokens de tema viven en src/theme/variables.scss.
+//  Aquí solo: tipografía, menú lateral admin y simbología de marca.
+// =============================================================================
+
 @font-face {
-    font-family: 'Raleway';
-    src: url("../assets/font/Raleway.ttf");
+  font-family: 'Raleway';
+  src: url("../assets/font/Raleway.ttf");
 }
 
 :root {
-    --ion-font-family: 'Raleway';
-    --ion-background-color: #C8C2AA;
-    --ion-text-color: #4D493E;
-    --ion-toolbar-background: #4D493E;
-    --ion-toolbar-color: #C8C2AA;
-    --ion-item-background: #C8C2AA;
-    --ion-card-background: #d4ceb8;
+  --ion-font-family: 'Raleway';
 }
 
-.ion-color-personalizado {
-    --ion-color-base: #686090 !important;
-    --ion-color-base-rgb: 104,96,144 !important;
-    --ion-color-contrast: #C8C2AA !important;
-    --ion-color-contrast-rgb: 200,194,170 !important;
-    --ion-color-shade: #5c547f !important;
-    --ion-color-tint: #77709b !important;
-}
-
-.ion-color-nier-dark {
-    --ion-color-base: #4D493E !important;
-    --ion-color-base-rgb: 77,73,62 !important;
-    --ion-color-contrast: #C8C2AA !important;
-    --ion-color-contrast-rgb: 200,194,170 !important;
-    --ion-color-shade: #3a3731 !important;
-    --ion-color-tint: #5f5b51 !important;
-}
-
-ion-content {
-    --background: #C8C2AA;
-    --color: #4D493E;
-}
-
-ion-item {
-    --background: #C8C2AA;
-    --color: #4D493E;
-    --border-color: #4D493E;
-}
-
-ion-list {
-    background: #C8C2AA !important;
-}
-
-ion-card {
-    --background: #d4ceb8;
-    --color: #4D493E;
-}
-
-ion-label {
-    color: #4D493E !important;
-}
-
-ion-button {
-    --background: #686090;
-    --color: #C8C2AA;
-}
-
-ion-card-title {
-    color: #4D493E !important;
-}
-
-ion-card-content {
-    color: #4D493E !important;
-}
-
-p {
-    color: #4D493E !important;
-}
-
-h2, h3 {
-    color: #4D493E !important;
-}
-
+// -----------------------------------------------------------------------------
+//  Menú lateral (administración)
+// -----------------------------------------------------------------------------
 ion-menu {
-    --width: 260px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  --width: 260px;
+  --background: var(--nv-negro-cine);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.6);
 }
 
-ion-menu ion-toolbar {
-    --background: #4D493E;
-    --color: #C8C2AA;
+ion-menu ion-content {
+  --background: var(--nv-negro-cine);
 }
 
 ion-menu ion-title {
-    font-weight: bold;
-    font-size: 1.3rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+ion-menu ion-list {
+  background: transparent !important;
+  padding-bottom: 4px;
+}
+
+ion-menu ion-list:not(:last-child) {
+  border-bottom: 1px solid var(--nv-grafito);
 }
 
 ion-menu ion-item {
-    --background: #C8C2AA;
-    --color: #4D493E;
-    font-size: 1.1rem;
-    font-weight: 500;
+  --background: transparent;
+  --color: var(--nv-gris-niebla);
+  font-size: 1.05rem;
+  font-weight: 500;
 }
 
 ion-menu ion-item:hover {
-    --background: #b8b2a0;
-    cursor: pointer;
+  --background: var(--nv-carbon);
+  cursor: pointer;
 }
 
-.ion-color-netview {
-  --ion-color-base:         #e24b4a;
-  --ion-color-base-rgb:     226, 75, 74;
-  --ion-color-contrast:     #ffffff;
-  --ion-color-contrast-rgb: 255, 255, 255;
-  --ion-color-shade:        #c74241;
-  --ion-color-tint:         #e55d5c;
-}
-
-:root {
-  --color-netview: #e24b4a;
-}
-
+// Encabezados de sección del menú — etiqueta corta en rojo Netview.
 .header-label {
   color:          var(--color-netview) !important;
   font-size:      11px;
   font-weight:    700;
   letter-spacing: 1.5px;
+  text-transform: uppercase;
   margin-top:     8px;
 }
- 
-// ── Ítems con icono ──
+
+// Íconos de los ítems del menú.
 .item-icon {
   color:        var(--color-netview);
   font-size:    20px;
   margin-right: 12px;
 }
- 
+
 .item-icon-logout {
   color:        var(--ion-color-danger);
   font-size:    20px;
   margin-right: 12px;
 }
- 
-// ── Sutil separación visual entre listas ──
-ion-menu ion-list {
-  padding-bottom: 4px;
-}
- 
-ion-menu ion-list:not(:last-child) {
-  border-bottom: 1px solid var(--ion-card-background);
-}
 
-/* ── Logo en header del menú admin ────────────── */
+// Logo en el encabezado del menú admin.
 .menu-header {
   display: flex;
   align-items: center;
@@ -166,3 +96,84 @@ ion-menu ion-list:not(:last-child) {
   font-weight: 700;
   letter-spacing: 0.3px;
 }
+
+// =============================================================================
+//  SIMBOLOGÍA · señales visuales de rol, tipo de contenido y estado.
+//  Clases utilitarias reutilizables en cualquier plantilla.
+// =============================================================================
+
+// ── Base común de las insignias ──────────────────────────────────────────────
+.nv-badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            4px;
+  font-size:      10px;
+  font-weight:    700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding:        3px 9px;
+  border-radius:  6px;
+  line-height:    1;
+  white-space:    nowrap;
+}
+
+// ── Símbolos de rol y acceso ─────────────────────────────────────────────────
+// Administrador → insignia en Rojo Netview.
+.nv-badge--admin {
+  background: var(--nv-rojo);
+  color:      #ffffff;
+}
+
+// Cliente → usuario suscriptor, insignia en negro cine.
+.nv-badge--cliente {
+  background: var(--nv-negro-cine);
+  color:      #ffffff;
+  border:     1px solid var(--nv-grafito);
+}
+
+// Contenido protegido → sección que requiere sesión / permiso de rol.
+.nv-badge--protegido {
+  background: transparent;
+  color:      var(--nv-rojo);
+  border:     1px solid var(--nv-rojo);
+}
+
+// ── Símbolos de tipo de contenido ────────────────────────────────────────────
+.nv-badge--pelicula {  // Película · tipo Movie
+  background: var(--nv-negro-cine);
+  color:      #ffffff;
+  border:     1px solid var(--nv-grafito);
+}
+
+.nv-badge--serie {     // Serie · tipo Series
+  background: var(--nv-rojo);
+  color:      #ffffff;
+}
+
+.nv-badge--kids {      // Kids · catálogo infantil
+  background: var(--nv-info);
+  color:      #ffffff;
+}
+
+// ── Símbolos de estado y notificación ────────────────────────────────────────
+// Punto de color que acompaña (nunca sustituye) al texto del mensaje.
+.nv-estado {
+  display:     inline-flex;
+  align-items: center;
+  gap:         7px;
+  font-size:   13px;
+  color:       var(--ion-text-color);
+}
+
+.nv-estado::before {
+  content:       '';
+  width:         9px;
+  height:        9px;
+  border-radius: 50%;
+  flex-shrink:   0;
+}
+
+.nv-estado--exito::before       { background: var(--nv-exito); }
+.nv-estado--advertencia::before { background: var(--nv-advertencia); }
+.nv-estado--error::before       { background: var(--nv-peligro); }
+.nv-estado--info::before        { background: var(--nv-info); }

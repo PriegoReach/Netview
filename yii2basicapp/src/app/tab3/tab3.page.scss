@@ -27,6 +27,12 @@
     }
   }
 
+  .perfil-nombre-row {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+  }
+
   .perfil-nombre {
     color:       var(--ion-text-color);
     font-size:   16px;

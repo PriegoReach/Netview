@@ -48,7 +48,7 @@ export class Tab3Page implements OnInit {
     private router:      Router,
     private alertCtrl:   AlertController,
     private loadingCtrl: LoadingController,
-    private auth:        AuthService,
+    public  auth:        AuthService,
     private permisos:    PermisoService,
   ) {}
 

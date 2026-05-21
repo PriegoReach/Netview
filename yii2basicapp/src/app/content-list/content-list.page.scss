@@ -1,3 +1,10 @@
+// Fila de metadatos con insignia de tipo de contenido.
+.meta-fila {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+}
+
 .empty-state {
   display:         flex;
   flex-direction:  column;

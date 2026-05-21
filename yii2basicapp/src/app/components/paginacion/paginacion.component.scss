@@ -14,8 +14,8 @@
 }
 
 .swiper-slide {
-  background-color: #C8C2AA;
-  color: #4D493E;
+  background-color: var(--nv-carbon);
+  color: var(--nv-gris-niebla);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -23,11 +23,19 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid var(--nv-grafito);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.15s ease;
 }
 
+.swiper-slide:hover {
+  background-color: var(--nv-grafito);
+}
+
+// Página activa → Rojo Netview.
 .active {
-  background-color: #686090;
-  color: #C8C2AA;
+  background-color: var(--nv-rojo);
+  color: #ffffff;
+  border-color: var(--nv-rojo);
   font-weight: bold;
 }

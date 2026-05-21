@@ -41,7 +41,9 @@
         <ion-item>
           <ion-label>
             <p>Tipo</p>
-            <h2>{{item.content_type}}</h2>
+            <span class="nv-badge" [ngClass]="tipoBadgeClass(item.content_type)">
+              {{ item.content_type }}
+            </span>
           </ion-label>
         </ion-item>
       </ion-list>

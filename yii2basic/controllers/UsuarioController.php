@@ -436,4 +436,227 @@ public function actionQuitarFavorito($content_id)
  
     return ['success' => true, 'message' => 'Quitado de favoritos'];
 }
+
+/**
+ * POST /usuario/calificar
+ * Headers: Authorization: Bearer <token>
+ * Body: { content_id, score (1-5) }
+ *
+ * Registra o actualiza la calificación del usuario para un contenido.
+ */
+public function actionCalificar()
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    $user = \Yii::$app->user->identity;
+    if (!$user) {
+        \Yii::$app->response->statusCode = 401;
+        return ['error' => 'No autenticado'];
+    }
+
+    $params    = \Yii::$app->request->getBodyParams();
+    $contentId = (int)($params['content_id'] ?? 0);
+    $score     = (int)($params['score'] ?? 0);
+
+    if ($contentId === 0 || $score < 1 || $score > 5) {
+        \Yii::$app->response->statusCode = 400;
+        return ['error' => 'content_id y score (1-5) son requeridos'];
+    }
+
+    // Usa el primer perfil del usuario (igual que favoritos)
+    $profileId = (new \yii\db\Query())
+        ->select('profile_id')
+        ->from('profiles')
+        ->where(['user_id' => $user->id])
+        ->scalar();
+
+    if (!$profileId) {
+        \Yii::$app->response->statusCode = 422;
+        return ['error' => 'El usuario no tiene perfiles'];
+    }
+
+    // Upsert: si ya calificó este contenido, actualiza; si no, inserta
+    $ratingId = (new \yii\db\Query())
+        ->select('rating_id')
+        ->from('ratings')
+        ->where(['profile_id' => $profileId, 'content_id' => $contentId])
+        ->scalar();
+
+    if ($ratingId) {
+        \Yii::$app->db->createCommand()
+            ->update('ratings', ['score' => $score], ['rating_id' => $ratingId])
+            ->execute();
+    } else {
+        \Yii::$app->db->createCommand()
+            ->insert('ratings', [
+                'profile_id' => $profileId,
+                'content_id' => $contentId,
+                'score'      => $score,
+            ])->execute();
+    }
+
+    // Promedio actualizado para refrescar la UI
+    $avg = (new \yii\db\Query())
+        ->from('ratings')
+        ->where(['content_id' => $contentId])
+        ->average('score');
+
+    return [
+        'success'      => true,
+        'message'      => 'Calificación guardada',
+        'tu_score'     => $score,
+        'calificacion' => $avg ? round($avg, 1) : 0,
+    ];
+}
+
+/**
+ * GET /usuario/calificacion/{content_id}
+ * Headers: Authorization: Bearer <token>
+ *
+ * Devuelve la calificación que el usuario dio a un contenido (0 si no calificó).
+ */
+public function actionMiCalificacion($content_id)
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    $user = \Yii::$app->user->identity;
+    if (!$user) {
+        \Yii::$app->response->statusCode = 401;
+        return ['error' => 'No autenticado'];
+    }
+
+    $profileIds = (new \yii\db\Query())
+        ->select('profile_id')
+        ->from('profiles')
+        ->where(['user_id' => $user->id])
+        ->column();
+
+    if (empty($profileIds)) {
+        return ['score' => 0];
+    }
+
+    $score = (new \yii\db\Query())
+        ->select('score')
+        ->from('ratings')
+        ->where(['profile_id' => $profileIds, 'content_id' => (int)$content_id])
+        ->orderBy(['rating_id' => SORT_DESC])
+        ->scalar();
+
+    return ['score' => $score ? (int)$score : 0];
+}
+
+/**
+ * POST /usuario/historial
+ * Headers: Authorization: Bearer <token>
+ * Body: { content_id, watched_seconds?, episode_id? }
+ *
+ * Guarda el progreso de reproducción del usuario.
+ * Hace UPSERT: mantiene una sola fila por (perfil, contenido, episodio),
+ * así el progreso se actualiza en lugar de duplicar registros.
+ * Si watched_seconds llega como 0 (video visto completo), el contador
+ * queda reiniciado. Alimenta GET /usuario/continuar-viendo.
+ */
+public function actionRegistrarHistorial()
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    $user = \Yii::$app->user->identity;
+    if (!$user) {
+        \Yii::$app->response->statusCode = 401;
+        return ['error' => 'No autenticado'];
+    }
+
+    $params    = \Yii::$app->request->getBodyParams();
+    $contentId = (int)($params['content_id'] ?? 0);
+    $segundos  = max(0, (int)($params['watched_seconds'] ?? 0));
+    $episodeId = isset($params['episode_id']) && $params['episode_id'] !== null
+        ? (int)$params['episode_id']
+        : null;
+
+    if ($contentId === 0) {
+        \Yii::$app->response->statusCode = 400;
+        return ['error' => 'content_id requerido'];
+    }
+
+    $profileId = (new \yii\db\Query())
+        ->select('profile_id')
+        ->from('profiles')
+        ->where(['user_id' => $user->id])
+        ->scalar();
+
+    if (!$profileId) {
+        \Yii::$app->response->statusCode = 422;
+        return ['error' => 'El usuario no tiene perfiles'];
+    }
+
+    // Busca la fila existente para este perfil/contenido/episodio.
+    // Con episode_id = null Yii genera "episode_id IS NULL" automáticamente.
+    $historyId = (new \yii\db\Query())
+        ->select('history_id')
+        ->from('watch_history')
+        ->where([
+            'profile_id' => $profileId,
+            'content_id' => $contentId,
+            'episode_id' => $episodeId,
+        ])
+        ->scalar();
+
+    if ($historyId) {
+        \Yii::$app->db->createCommand()
+            ->update('watch_history',
+                ['watched_seconds' => $segundos],
+                ['history_id' => $historyId])
+            ->execute();
+    } else {
+        \Yii::$app->db->createCommand()->insert('watch_history', [
+            'profile_id'      => $profileId,
+            'content_id'      => $contentId,
+            'episode_id'      => $episodeId,
+            'watched_seconds' => $segundos,
+        ])->execute();
+    }
+
+    return [
+        'success'         => true,
+        'message'         => 'Progreso guardado',
+        'watched_seconds' => $segundos,
+    ];
+}
+
+/**
+ * GET /usuario/historial/{content_id}
+ * Headers: Authorization: Bearer <token>
+ *
+ * Devuelve los segundos vistos guardados para un contenido (0 si no hay).
+ * Permite al reproductor reanudar donde se quedó el usuario.
+ */
+public function actionMiHistorial($content_id)
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    $user = \Yii::$app->user->identity;
+    if (!$user) {
+        \Yii::$app->response->statusCode = 401;
+        return ['error' => 'No autenticado'];
+    }
+
+    $profileIds = (new \yii\db\Query())
+        ->select('profile_id')
+        ->from('profiles')
+        ->where(['user_id' => $user->id])
+        ->column();
+
+    if (empty($profileIds)) {
+        return ['watched_seconds' => 0];
+    }
+
+    $segundos = (new \yii\db\Query())
+        ->select('watched_seconds')
+        ->from('watch_history')
+        ->where(['profile_id' => $profileIds, 'content_id' => (int)$content_id])
+        ->orderBy(['history_id' => SORT_DESC])
+        ->scalar();
+
+    return ['watched_seconds' => $segundos ? (int)$segundos : 0];
+}
 }

@@ -46,7 +46,7 @@ netview/
 
 ```bash
 # 1. Clonar el repo
-git clone https://github.com/<tu-usuario>/netview.git
+git clone https://github.com/PriegoReach/Netview.git
 cd netview
 
 # 2. Levantar todo
